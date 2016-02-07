@@ -1,0 +1,39 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.android.databinding'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        applicationId "com.github.mosberger.helloannotationprocessor"
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:design:23.1.1'
+    compile 'org.jetbrains.kotlin:kotlin-stdlib:1.0.0-rc-1036'
+    compile 'org.apache.velocity:velocity:1.6.2'
+
+    kapt files('libs/annotation-processor-0.0.1-SNAPSHOT.jar')
+    kapt 'com.android.databinding:compiler:1.0-rc4'
+
+    testCompile 'junit:junit:4.12'
+}
