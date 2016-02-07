@@ -1,0 +1,40 @@
+apply plugin: 'java'
+apply plugin: 'kotlin'
+
+group 'com.github.mosberger.annotationplayground'
+version '0.0.1-SNAPSHOT'
+
+buildscript {
+    ext {
+        kotlin_version = '1.0.0-rc-1036'
+        velocity_version = '1.6.2'
+        auto_service_version = '1.0-rc2'
+
+        junit_version = '4.12'
+//        mockito_version = '1.10.8'
+//        commons_version = '2.4'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    compile "org.apache.velocity:velocity:$velocity_version"
+
+    testCompile "junit:junit:$junit_version"
+//    testCompile "org.mockito:mockito-core:$mockito_version"
+//    testCompile "commons-io:commons-io:$commons_version"
+}
+sourceSets {
+    main.java.srcDirs += 'src/main/kotlin'
+}
