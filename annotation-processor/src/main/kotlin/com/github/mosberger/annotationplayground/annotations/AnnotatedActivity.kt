@@ -5,4 +5,4 @@ package com.github.mosberger.annotationplayground.annotations
  */
 @Target(AnnotationTarget.CLASS, AnnotationTarget.FILE)
 @Retention(AnnotationRetention.SOURCE)
-annotation class AnnotatedActivity(val layout: Int)
+annotation class AnnotatedActivity(val value: Int)

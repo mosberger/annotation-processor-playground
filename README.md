@@ -11,36 +11,32 @@ ViewModels that are defined in the DataBinding.
 ## Example:
 The annotation processor can generate code for classes in the style of:
 ```java
-@AnnotatedActivity(layout = R.layout.activity_main)
-public class JMainActivity extends AppCompatActivity {
-    @ViewModel(setter = "setViewModel")
+@AnnotatedActivity(R.layout.activity_main)
+public class MainActivity extends AppCompatActivity {
+    @ViewModel("setMainViewModel")
     MainViewModel mainViewModel;
 
     @DataBinding
     ActivityMainBinding binding;
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        JMainActivityKt.setupViews(this);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        MainActivityUtil.bind(this);
+        setSupportActionBar(binding.toolbar);
     }
 }
 ```
-This class generates the following subclass:
+This class generates the following util class:
 ```java
-public class JMainActivityGen extends JMainActivity {
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+class MainActivityUtil {
+    static void bind(final MainActivity bindee) {
+        final @LayoutRes int layout = 2130968601;
+        bindee.setContentView(layout);
+        bindee.binding = DataBindingUtil.setContentView(bindee, layout);
 
-        @LayoutRes int layout = 2130968602;
-
-        setContentView(layout);
-        binding = DataBindingUtil.setContentView(this, layout);
-        setSupportActionBar(binding.toolbar);
-
-        mainViewModel = new ch.domi.train_timetable.viewmodel.MainViewModel();
-        binding.setViewModel(mainViewModel);
+        bindee.mainViewModel = new com.github.mosberger.helloannotationprocessor.viewmodel.MainViewModel();
+        bindee.binding.setMainViewModel(bindee.mainViewModel);
     }
 }
 ```

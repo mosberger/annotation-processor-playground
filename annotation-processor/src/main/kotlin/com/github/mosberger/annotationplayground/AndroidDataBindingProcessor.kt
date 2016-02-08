@@ -24,19 +24,18 @@ import javax.tools.Diagnostic
  * Created by domi on 05.02.16.
  */
 @SupportedSourceVersion(SourceVersion.RELEASE_7)
-@SupportedAnnotationTypes("ch.domi.annotationplayground")
+@SupportedAnnotationTypes("com.github.mosberger.annotationplayground")
 class AndroidDataBindingProcessor : AbstractProcessor() {
     override fun process(annotations: MutableSet<out TypeElement>, roundEnvironment: RoundEnvironment): Boolean {
         for (element in getElementsOfType(roundEnvironment, AnnotatedActivity::class.java)) {
             val elementProperties = getProperties(element)
 
             val url = this.javaClass.classLoader.getResource("velocity.properties")
-
             val properties = Properties()
             properties.load(url.openStream())
 
             val velocityEngine = VelocityEngine(properties)
-            val javaFile = processingEnv.filer.createSourceFile("${element.qualifiedName}Gen")
+            val javaFile = processingEnv.filer.createSourceFile("${element.qualifiedName}Util")
             val writer = javaFile.openWriter()
             val template = velocityEngine.getTemplate("AnnotatedActivity.vm")
 
@@ -52,20 +51,19 @@ class AndroidDataBindingProcessor : AbstractProcessor() {
     private fun getProperties(element: TypeElement): ElementProperties {
         val packageName = (element.enclosingElement as PackageElement).qualifiedName.toString()
         val className = element.simpleName.toString()
-        val layout = element.getAnnotation(AnnotatedActivity::class.java).layout
+        val layout = element.getAnnotation(AnnotatedActivity::class.java).value
+
+        val binding = getElementsOfType(element, DataBinding::class.java).first()
+        val bindingName = binding.simpleName.toString()
+        val dataBindingProperties = DataBindingProperties(bindingName)
 
         val viewModelPropertiesList = arrayListOf<ViewModelProperties>()
         for (viewModel in getElementsOfType(element, ViewModel::class.java)) {
             val field = viewModel.simpleName.toString()
             val viewModelClassName = viewModel.asType().toString()
-            val property = viewModel.getAnnotation(ViewModel::class.java).setter
-
+            val property = viewModel.getAnnotation(ViewModel::class.java).value
             viewModelPropertiesList.add(ViewModelProperties(field, viewModelClassName, property))
         }
-
-        val binding = getElementsOfType(element, DataBinding::class.java).first()
-        val bindingName = binding.simpleName.toString()
-        val dataBindingProperties = DataBindingProperties(bindingName)
 
         processingEnv.messager.printMessage(Diagnostic.Kind.NOTE, "Done")
 

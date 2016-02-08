@@ -5,4 +5,4 @@ package com.github.mosberger.annotationplayground.annotations
  */
 @Target(AnnotationTarget.FIELD)
 @Retention(AnnotationRetention.SOURCE)
-annotation class ViewModel(val setter: String)
+annotation class ViewModel(val value: String)

@@ -32,8 +32,8 @@ dependencies {
     compile 'org.jetbrains.kotlin:kotlin-stdlib:1.0.0-rc-1036'
     compile 'org.apache.velocity:velocity:1.6.2'
 
-    kapt files('libs/annotation-processor-0.0.1-SNAPSHOT.jar')
     kapt 'com.android.databinding:compiler:1.0-rc4'
+    kapt files('libs/annotation-processor-0.0.1-SNAPSHOT.jar')
 
     testCompile 'junit:junit:4.12'
 }
