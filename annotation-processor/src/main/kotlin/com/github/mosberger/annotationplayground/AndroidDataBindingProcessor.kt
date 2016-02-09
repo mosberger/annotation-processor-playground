@@ -53,21 +53,26 @@ class AndroidDataBindingProcessor : AbstractProcessor() {
         val className = element.simpleName.toString()
         val layout = element.getAnnotation(AnnotatedActivity::class.java).value
 
-        val binding = getElementsOfType(element, DataBinding::class.java).first()
-        val bindingName = binding.simpleName.toString()
-        val dataBindingProperties = DataBindingProperties(bindingName)
+        val dataBindingPropertiesList = arrayListOf<DataBindingProperties>()
+        for (binding in getElementsOfType(element, DataBinding::class.java)) {
+            val bindingName = binding.simpleName.toString()
+            val bindingValue = binding.getAnnotation(DataBinding::class.java).value
+            dataBindingPropertiesList.add(DataBindingProperties(bindingName, bindingValue))
+
+            processingEnv.messager.printMessage(Diagnostic.Kind.NOTE, "x = ${binding.asType()}")
+        }
 
         val viewModelPropertiesList = arrayListOf<ViewModelProperties>()
-        for (viewModel in getElementsOfType(element, ViewModel::class.java)) {
-            val field = viewModel.simpleName.toString()
-            val viewModelClassName = viewModel.asType().toString()
-            val property = viewModel.getAnnotation(ViewModel::class.java).value
-            viewModelPropertiesList.add(ViewModelProperties(field, viewModelClassName, property))
-        }
+//        for (viewModel in getElementsOfType(element, ViewModel::class.java)) {
+//            val field = viewModel.simpleName.toString()
+//            val viewModelClassName = viewModel.asType().toString()
+//            val property = viewModel.getAnnotation(ViewModel::class.java).value
+//            viewModelPropertiesList.add(ViewModelProperties(field, viewModelClassName, property))
+//        }
 
         processingEnv.messager.printMessage(Diagnostic.Kind.NOTE, "Done")
 
-        return ElementProperties(packageName, className, layout, viewModelPropertiesList, dataBindingProperties)
+        return ElementProperties(packageName, className, layout, viewModelPropertiesList, dataBindingPropertiesList)
     }
 
     private fun getElementsOfType(roundEnvironment: RoundEnvironment, clazz: Class<out Annotation>) =

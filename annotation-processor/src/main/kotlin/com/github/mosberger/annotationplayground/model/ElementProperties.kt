@@ -8,5 +8,5 @@ data class ElementProperties(
         , val className: String
         , val layout: Int
         , val viewModels: Iterable<ViewModelProperties>
-        , val binding: DataBindingProperties
+        , val bindings: Iterable<DataBindingProperties>
 )

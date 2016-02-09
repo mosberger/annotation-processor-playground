@@ -10,7 +10,11 @@ class ${properties.className}Util {
     static void bind(final ${properties.className} bindee) {
         final @LayoutRes int layout = ${properties.layout};
         bindee.setContentView(layout);
-        bindee.${properties.binding.name} = DataBindingUtil.setContentView(bindee, layout);
+#foreach($binding in $properties.bindings)
+
+        final @LayoutRes int ${binding.name}Id = ${binding.layout};
+        bindee.${binding.name} = DataBindingUtil.setContentView(bindee, ${binding.name}Id);
+#end
 #foreach($viewModel in $properties.viewModels)
 
         bindee.${viewModel.field} = new ${viewModel.className}();

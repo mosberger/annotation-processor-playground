@@ -5,4 +5,4 @@ package com.github.mosberger.annotationplayground.annotations
  */
 @Target(AnnotationTarget.FIELD)
 @Retention(AnnotationRetention.SOURCE)
-annotation class DataBinding
+annotation class DataBinding(val value: Int)
