@@ -2,17 +2,13 @@ package com.github.mosberger.annotationplayground
 
 import com.github.mosberger.annotationplayground.annotations.AnnotatedActivity
 import com.github.mosberger.annotationplayground.annotations.DataBinding
-import com.github.mosberger.annotationplayground.annotations.ViewModel
 import com.github.mosberger.annotationplayground.model.DataBindingProperties
 import com.github.mosberger.annotationplayground.model.ElementProperties
 import com.github.mosberger.annotationplayground.model.ViewModelProperties
 import org.apache.velocity.VelocityContext
 import org.apache.velocity.app.VelocityEngine
 import java.util.*
-import javax.annotation.processing.AbstractProcessor
-import javax.annotation.processing.RoundEnvironment
-import javax.annotation.processing.SupportedAnnotationTypes
-import javax.annotation.processing.SupportedSourceVersion
+import javax.annotation.processing.*
 import javax.lang.model.SourceVersion
 import javax.lang.model.element.Element
 import javax.lang.model.element.PackageElement
@@ -24,8 +20,9 @@ import javax.tools.Diagnostic
  * Created by domi on 05.02.16.
  */
 @SupportedSourceVersion(SourceVersion.RELEASE_7)
-@SupportedAnnotationTypes("com.github.mosberger.annotationplayground")
 class AndroidDataBindingProcessor : AbstractProcessor() {
+    override fun getSupportedAnnotationTypes() = hashSetOf(AnnotatedActivity::class.java.canonicalName)
+
     override fun process(annotations: MutableSet<out TypeElement>, roundEnvironment: RoundEnvironment): Boolean {
         for (element in getElementsOfType(roundEnvironment, AnnotatedActivity::class.java)) {
             val elementProperties = getProperties(element)

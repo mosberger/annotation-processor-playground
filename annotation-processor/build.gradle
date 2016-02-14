@@ -10,6 +10,8 @@ buildscript {
         velocity_version = '1.6.2'
         auto_service_version = '1.0-rc2'
 
+        compile_testing_version = '0.6'
+        google_android_version = '4.1.1.4'
         junit_version = '4.12'
 //        mockito_version = '1.10.8'
 //        commons_version = '2.4'
@@ -31,6 +33,8 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     compile "org.apache.velocity:velocity:$velocity_version"
 
+    testCompile "com.google.testing.compile:compile-testing:$compile_testing_version"
+    testCompile "com.google.android:android:$google_android_version"
     testCompile "junit:junit:$junit_version"
 //    testCompile "org.mockito:mockito-core:$mockito_version"
 //    testCompile "commons-io:commons-io:$commons_version"
