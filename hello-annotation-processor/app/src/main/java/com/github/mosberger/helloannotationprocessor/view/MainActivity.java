@@ -13,10 +13,10 @@ import com.github.mosberger.helloannotationprocessor.viewmodel.MainViewModel;
 
 @AnnotatedActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity {
-    @ViewModel("setMainViewModel")
+    @ViewModel(property = "binding", bindingSetter = "setMainViewModel")
     MainViewModel mainViewModel;
 
-    @DataBinding
+    @DataBinding(R.layout.activity_main)
     ActivityMainBinding binding;
 
     @Override

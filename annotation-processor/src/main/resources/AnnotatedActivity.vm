@@ -18,7 +18,7 @@ class ${properties.className}Util {
 #foreach($viewModel in $properties.viewModels)
 
         bindee.${viewModel.field} = new ${viewModel.className}();
-        bindee.${properties.binding.name}.${viewModel.property}(bindee.${viewModel.field});
+        bindee.${viewModel.property}.${viewModel.bindingSetter}(bindee.${viewModel.field});
 #end
     }
 }

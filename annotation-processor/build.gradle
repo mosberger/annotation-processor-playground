@@ -2,7 +2,7 @@ apply plugin: 'java'
 apply plugin: 'kotlin'
 
 group 'com.github.mosberger.annotationplayground'
-version '0.0.1-SNAPSHOT'
+version '0.0.2'
 
 buildscript {
     ext {
@@ -13,8 +13,6 @@ buildscript {
         compile_testing_version = '0.6'
         google_android_version = '4.1.1.4'
         junit_version = '4.12'
-//        mockito_version = '1.10.8'
-//        commons_version = '2.4'
     }
     repositories {
         mavenCentral()
@@ -36,8 +34,6 @@ dependencies {
     testCompile "com.google.testing.compile:compile-testing:$compile_testing_version"
     testCompile "com.google.android:android:$google_android_version"
     testCompile "junit:junit:$junit_version"
-//    testCompile "org.mockito:mockito-core:$mockito_version"
-//    testCompile "commons-io:commons-io:$commons_version"
 }
 sourceSets {
     main.java.srcDirs += 'src/main/kotlin'

@@ -9,25 +9,12 @@ import com.google.testing.compile.JavaSourceSubjectFactory.javaSource
  * Created by domi on 11.02.16.
  */
 class TestSuite {
-    private val SOURCE = listOf(
-                        "package test;",
-                        "import com.github.mosberger.annotationplayground.annotations.AnnotatedActivity;",
-                        "@AnnotatedActivity(1)",
-                        "public class MainActivity {",
-                        "}"
-    )
-    private val RESULT = listOf(
-                        "package test;",
-                        "public class MainActivityUtil {",
-                        "}"
-    )
-
     @Test
-    fun testy() {
+    fun processorTest() {
         ASSERT
                 .about(javaSource())
-                .that(JavaFileObjects.forSourceLines("MainActivity",SOURCE))
+                .that(JavaFileObjects.forResource("MainActivity.java"))
                 .processedWith(AndroidDataBindingProcessor())
-                .compilesWithoutError()
+                .failsToCompile()
     }
 }
