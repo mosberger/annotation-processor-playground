@@ -1,0 +1,5 @@
+<resources>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main_kt_ext">MainActivityKtExt</string>
+    <string name="title_activity_main_kt_bnd">MainActivityKtBnd</string>
+</resources>
