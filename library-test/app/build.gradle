@@ -23,6 +23,12 @@ android {
     dataBinding {
         enabled = true
     }
+
+    sourceSets {
+        main.java.srcDirs += 'swisscom/java'
+//        main.java.srcDirs += 'swisscom/kotlin'
+        main.res.srcDirs += 'swisscom/res'
+    }
 }
 
 dependencies {
@@ -30,6 +36,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
-    compile (project(path: ':mylibrary'))
+//    compile (project(path: ':mylibrary'))
     compile 'org.jetbrains.kotlin:kotlin-stdlib:1.0.0'
 }

@@ -1,12 +1,13 @@
 package com.github.mosberger.mylibrary;
 
+import com.github.mosberger.librarytest.R;
+import com.github.mosberger.librarytest.databinding.ActivityMainBinding;
+
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-
-import com.github.mosberger.mylibrary.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +27,11 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        switch (1) {
+            case R.string.app_name:
+                break;
+        }
     }
 
 }
